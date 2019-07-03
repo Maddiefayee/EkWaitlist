@@ -1,0 +1,2801 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+	<Script file="localization.lua"/>
+	<Script file="EkWaitList.lua"/>
+
+	<Button name="EkWaitList_UIPanelButtonTemplateSmall" virtual="true">
+		<NormalFont style="GameFontNormalSmall"/>
+		<DisabledFont style="GameFontDisableSmall"/>
+		<HighlightFont style="GameFontHighlightSmall"/>
+		<NormalTexture inherits="UIPanelButtonUpTexture"/>
+		<PushedTexture inherits="UIPanelButtonDownTexture"/>
+		<DisabledTexture inherits="UIPanelButtonDisabledTexture"/>
+		<HighlightTexture inherits="UIPanelButtonHighlightTexture"/>
+	</Button>
+
+	<Button name="EkWaitList_Frame_TabTemplate" inherits="CharacterFrameTabButtonTemplate" virtual="true">
+		<Scripts>
+			<OnClick>
+				-- OnClick(self, button, down)
+				EkWaitList_Frame_Tab_OnClick(self);
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Button name="EkWaitList_Frame_MenuButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="105" y="22"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				-- OnClick(self, button, down)
+				EkWaitList_Frame_MenuButton_OnClick(self:GetID());
+			</OnClick>
+			<OnEnter>
+				-- OnEnter(self, motion)
+				EkWaitList_Frame_MenuButton_OnEnter(self:GetID());
+			</OnEnter>
+			<OnLeave>
+				-- OnLeave(self, motion)
+				EkWaitList_Frame_MenuButton_OnLeave(self:GetID());
+			</OnLeave>
+		</Scripts>
+	</Button>
+	<Button name="EkWaitList_Frame_MenuButtonTemplateSmall" inherits="EkWaitList_UIPanelButtonTemplateSmall" virtual="true">
+		<Size>
+			<AbsDimension x="105" y="22"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				-- OnClick(self, button, down)
+				EkWaitList_Frame_MenuButton_OnClick(self:GetID());
+			</OnClick>
+			<OnEnter>
+				-- OnEnter(self, motion)
+				EkWaitList_Frame_MenuButton_OnEnter(self:GetID());
+			</OnEnter>
+			<OnLeave>
+				-- OnLeave(self, motion)
+				EkWaitList_Frame_MenuButton_OnLeave(self:GetID());
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="EkWaitList_WaitFrame_ButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="298" y="16"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentPosition" inherits="GameFontHighlightSmall" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="20" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-3"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentName" inherits="GameFontHighlightSmall" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="80" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentPosition" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="15" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentClass" inherits="GameFontHighlightSmall" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="55" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentName" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="8" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentAdded" inherits="GameFontHighlightSmall" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="75" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentClass" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="8" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentPercent" inherits="GameFontHighlightSmall" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="20" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentAdded" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="8" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				-- OnLoad(self)
+				self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+			</OnLoad>
+			<OnClick>
+				-- OnClick(self, button, down)
+				EkWaitList_WaitFrame_Button_OnClick(self, button);
+				PlaySound("igMainMenuOptionCheckBoxOn");
+			</OnClick>
+			<OnDoubleClick>
+				-- OnDoubleClick(self, button)
+				EkWaitList_WaitFrame_Button_OnDoubleClick(self, button);
+				PlaySound("igMainMenuOptionCheckBoxOn");
+			</OnDoubleClick>
+			<OnEnter>
+				-- OnEnter(self, motion)
+				EkWaitList_WaitFrame_Button_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				-- OnLeave(self, motion)
+				EkWaitList_HideTooltip();
+			</OnLeave>
+		</Scripts>
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="298" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="5" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+
+	<Button name="EkWaitList_WaitFrame_ColumnHeaderTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="10" y="24"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="5" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.078125" top="0" bottom="0.75"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="53" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.078125" right="0.90625" top="0" bottom="0.75"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="4" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentMiddle" relativePoint="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.90625" right="0.96875" top="0" bottom="0.75"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>
+				-- OnClick(self, button, down)
+				EkWaitList_WaitFrame_Column_Click(self.sortType);
+			</OnClick>
+		</Scripts>
+		<ButtonText>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="8" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontHighlightSmall"/>
+		<HighlightTexture name="$parentHighlightTexture" file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode="ADD">
+			<Anchors>
+				<Anchor point="TOPLEFT" relativeTo="$parentLeft">
+					<Offset>
+						<AbsDimension x="-2" y="5"/>
+					</Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT" relativeTo="$parentRight">
+					<Offset>
+						<AbsDimension x="2" y="-7"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+
+	<Frame name="EkWaitList_Frame_" toplevel="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" movable="true" hidden="true">
+		<Size>
+			<AbsDimension x="384" y="512"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="-104"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<HitRectInsets>
+			<AbsInset left="0" right="30" top="0" bottom="45"/>
+		</HitRectInsets>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\FriendsFrame\FriendsFrameScrollIcon">
+					<Size>
+						<AbsDimension x="60" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="7" y="-6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="EkWaitList_Frame_TopLeft" file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EkWaitList_Frame_TopRight" file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EkWaitList_Frame_BottomLeft" file="Interface\PaperDollInfoFrame\UI-Character-General-BottomLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="EkWaitList_Frame_BottomRight" file="Interface\PaperDollInfoFrame\UI-Character-General-BottomRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="EkWaitList_Frame_MoveButton" hidden="false">
+				<Size>
+					<AbsDimension x="250" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-55" y="-12"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnMouseDown>
+						-- OnMouseDown(self, button)
+						if ( button == "LeftButton" ) then
+							self:GetParent():StartMoving();
+						end
+					</OnMouseDown>
+					<OnMouseUp>
+						-- OnMouseDown(self, button)
+						if ( button == "LeftButton" ) then
+							self:GetParent():StopMovingOrSizing();
+						end
+					</OnMouseUp>
+					<OnEnter>
+						-- OnEnter(self, motion)
+						EkWaitList_SetTooltip_Anchor(self, EkWaitList_TEXT_Window_Click_To_Drag, "ANCHOR_RIGHT");
+					</OnEnter>
+					<OnLeave>
+						-- OnLeave(self, motion)
+						EkWaitList_HideTooltip();
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button name="EkWaitList_Frame_CloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-30" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+
+			<Button name="EkWaitList_Frame_MenuButton1" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="1">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="22" y="86"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton2" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton3" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="3">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton4" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="4">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="EkWaitList_Frame_MenuButton1" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton5" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="5">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton6" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="6">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton5" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton7" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="7">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="EkWaitList_Frame_MenuButton4" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton8" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="8">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton7" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton9" inherits="EkWaitList_Frame_MenuButtonTemplate" text="" id="9">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton8" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+
+			<Button name="EkWaitList_Frame_MenuButton21" inherits="EkWaitList_Frame_MenuButtonTemplateSmall" text="" id="21">
+				<Size>
+					<AbsDimension x="125" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="22" y="86"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton22" inherits="EkWaitList_Frame_MenuButtonTemplateSmall" text="" id="22">
+				<Size>
+					<AbsDimension x="125" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton21" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="EkWaitList_Frame_MenuButton23" inherits="EkWaitList_Frame_MenuButtonTemplateSmall" text="" id="23">
+				<Size>
+					<AbsDimension x="65" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_MenuButton22" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+
+			<Frame name="EkWaitList_OptionsFrame_" hidden="true" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="EkWaitList_OptionsFrame_TitleText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_MovableText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Movable_Window">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_" relativePoint="TOPLEFT">
+									<Offset>
+										<AbsDimension x="55" y="-85"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Allow_Whispers">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_MovableText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperIncomingText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Incoming_Whispers">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="25" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperOutgoingText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Outgoing_Whispers">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperIncomingText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperNonGuildText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Anyone_Can_Use_Add">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperOutgoingText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperCommandsText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Whispers_Commands">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperNonGuildText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="-25" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperHelpText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperCommandsText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="25" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperWhoText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperHelpText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperAddText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperWhoText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperMainText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperAddText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperRemoveText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperMainText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_WhisperCommentText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_WhisperRemoveText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-7"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="EkWaitList_OptionsFrame_ToggleTab1" inherits="TabButtonTemplate" text="EkWaitList_TEXT_Options_Page1_Tab" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_">
+								<Offset>
+									<AbsDimension x="70" y="-39"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								PanelTemplates_SelectTab(self);
+								PanelTemplates_TabResize(self, 0);
+								_G[self:GetName().."HighlightTexture"]:SetWidth(self:GetTextWidth() + 31);
+							</OnLoad>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_OptionsFrame_ToggleTab2" inherits="TabButtonTemplate" text="EkWaitList_TEXT_Options_Page2_Tab" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame_ToggleTab1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								-- OnShow(self)
+								PanelTemplates_DeselectTab(self);
+							</OnShow>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_Page = 2;
+								EkWaitList_Frame_OnShow();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<CheckButton name="EkWaitList_OptionsFrame_MovableCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_MovableText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_MovableCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Movable_Tooltip1, EkWaitList_TEXT_Options_Movable_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Allow_Whispers_Tooltip1, EkWaitList_TEXT_Options_Allow_Whispers_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperIncomingCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperIncomingText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperIncomingCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Incoming_Whispers_Tooltip1, EkWaitList_TEXT_Options_Incoming_Whispers_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperOutgoingCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperOutgoingText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperOutgoingCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Outgoing_Whispers_Tooltip1, EkWaitList_TEXT_Options_Outgoing_Whispers_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperNonGuildCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperNonGuildText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperNonGuildCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Anyone_Can_Use_Add_Tooltip1, EkWaitList_TEXT_Options_Anyone_Can_Use_Add_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperHelpCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperHelpText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperHelpCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Help_Tooltip1, EkWaitList_TEXT_Options_Whispers_Help_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperWhoCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperWhoText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperWhoCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Who_Tooltip1, EkWaitList_TEXT_Options_Whispers_Who_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperAddCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperAddText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperAddCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Add_Tooltip1, EkWaitList_TEXT_Options_Whispers_Add_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperMainCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperMainText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperMainCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Main_Tooltip1, EkWaitList_TEXT_Options_Whispers_Main_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperRemoveCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperRemoveText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperRemoveCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Remove_Tooltip1, EkWaitList_TEXT_Options_Whispers_Remove_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_WhisperCommentCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_WhisperCommentText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_WhisperCommentCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Whispers_Comment_Tooltip1, EkWaitList_TEXT_Options_Whispers_Comment_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						-- OnLoad(self)
+						EkWaitList_OptionsFrame_OnLoad();
+					</OnLoad>
+					<OnShow>
+						-- OnShow(self)
+						EkWaitList_OptionsFrame_OnShow();
+					</OnShow>
+				</Scripts>
+			</Frame>
+
+			<Frame name="EkWaitList_OptionsFrame2_" hidden="true" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="EkWaitList_OptionsFrame2_TitleText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_RemoveUponJoinText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Remove_Upon_Join">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame2_" relativePoint="TOPLEFT">
+									<Offset>
+										<AbsDimension x="55" y="-85"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_MainNameUseText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Search_Guild_Notes">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_RemoveUponJoinText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_MainNameNoteText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Main_Name_Location">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_MainNameUseText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-12"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_MainNameStartText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Main_Name_Starts">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_MainNameNoteText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-12"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_MainNameEndText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Main_Name_Ends">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_MainNameStartText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-12"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_ShowTooltipsText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Show_Tooltips">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_MainNameEndText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_OptionsFrame_ShowAtCursorText" inherits="ChatFontNormal" text="EkWaitList_TEXT_Options_Show_At_Cursor">
+							<Anchors>
+								<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame_ShowTooltipsText" relativePoint="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="25" y="-8"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="EkWaitList_OptionsFrame2_ToggleTab1" inherits="TabButtonTemplate" text="EkWaitList_TEXT_Options_Page1_Tab" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_OptionsFrame2_">
+								<Offset>
+									<AbsDimension x="70" y="-39"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnShow>
+								-- OnShow(self)
+								PanelTemplates_DeselectTab(self);
+							</OnShow>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_Page = 1;
+								EkWaitList_Frame_OnShow();
+							</OnClick>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_OptionsFrame2_ToggleTab2" inherits="TabButtonTemplate" text="EkWaitList_TEXT_Options_Page2_Tab" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame2_ToggleTab1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								PanelTemplates_SelectTab(self);
+								PanelTemplates_TabResize(self, 0);
+								_G[self:GetName().."HighlightTexture"]:SetWidth(self:GetTextWidth() + 31);
+							</OnLoad>
+						</Scripts>
+					</Button>
+					<CheckButton name="EkWaitList_OptionsFrame_RemoveUponJoinCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_RemoveUponJoinText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_RemoveUponJoinCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Remove_Upon_Join_Tooltip1, EkWaitList_TEXT_Options_Remove_Upon_Join_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_MainNameUseCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_MainNameUseText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_MainNameUseCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Search_Guild_Notes_Tooltip1, EkWaitList_TEXT_Options_Search_Guild_Notes_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<Frame name="EkWaitList_OptionsFrame_MainNameNoteDropDown" inherits="UIDropDownMenuTemplate" hidden="false">
+						<Size>
+							<AbsDimension x="110" y="16"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="EkWaitList_OptionsFrame_MainNameNoteText">
+								<Offset>
+									<AbsDimension x="-10" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_OptionsFrame_MainNameNoteDropDown_OnLoad();
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Main_Name_Location_Tooltip1, EkWaitList_TEXT_Options_Main_Name_Location_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Frame>
+					<EditBox name="EkWaitList_OptionsFrame_MainNameStartEB" historyLines="0" autoFocus="false">
+						<Size>
+							<AbsDimension x="90" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame_MainNameStartText" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_OptionsFrame_MainNameStartEBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-5" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_OptionsFrame_MainNameStartEBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="5" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_OptionsFrame_MainNameStartEBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame_MainNameStartEBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_OptionsFrame_MainNameStartEBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								self.cancel = 1;
+								self:ClearFocus();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								self:ClearFocus();
+							</OnEnterPressed>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								self:ClearFocus();
+							</OnTabPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_OptionsFrame_MainNameStartEB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_OptionsFrame_MainNameStartEB_EditStart();
+							</OnEditFocusGained>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Main_Name_Starts_Tooltip1, EkWaitList_TEXT_Options_Main_Name_Starts_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								EkWaitList_OptionsFrame_MainNameStartEB_OnTab(self);
+							</OnTabPressed>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+					<EditBox name="EkWaitList_OptionsFrame_MainNameEndEB" historyLines="0" autoFocus="false">
+						<Size>
+							<AbsDimension x="90" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame_MainNameEndText" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="15" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_OptionsFrame_MainNameEndEBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-5" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_OptionsFrame_MainNameEndEBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="5" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_OptionsFrame_MainNameEndEBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="22"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_OptionsFrame_MainNameEndEBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_OptionsFrame_MainNameEndEBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								self.cancel = 1;
+								self:ClearFocus();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								self:ClearFocus();
+							</OnEnterPressed>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								self:ClearFocus();
+							</OnTabPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_OptionsFrame_MainNameEndEB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_OptionsFrame_MainNameEndEB_EditStart();
+							</OnEditFocusGained>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Main_Name_Ends_Tooltip1, EkWaitList_TEXT_Options_Main_Name_Ends_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								EkWaitList_OptionsFrame_MainNameEndEB_OnTab(self);
+							</OnTabPressed>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+					<CheckButton name="EkWaitList_OptionsFrame_ShowTooltipsCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_ShowTooltipsText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_ShowTooltipsCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Show_Tooltips_Tooltip1, EkWaitList_TEXT_Options_Show_Tooltips_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+					<CheckButton name="EkWaitList_OptionsFrame_ShowAtCursorCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_OptionsFrame_ShowAtCursorText">
+								<Offset>
+									<AbsDimension x="-5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<HitRectInsets>
+							<AbsInset left="0" right="0" top="0" bottom="0"/>
+						</HitRectInsets>
+						<Size>
+							<AbsDimension x="24" y="24"/>
+						</Size>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_OptionsFrame_ShowAtCursorCB_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Options_Show_At_Cursor_Tooltip1, EkWaitList_TEXT_Options_Show_At_Cursor_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</CheckButton>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						-- OnShow(self)
+						EkWaitList_OptionsFrame_OnShow();
+					</OnShow>
+				</Scripts>
+			</Frame>
+
+			<Frame name="EkWaitList_WaitFrame_" setAllPoints="true" hidden="true">
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-TopLeft">
+							<Size>
+								<AbsDimension x="256" y="256"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-TopRight">
+							<Size>
+								<AbsDimension x="128" y="256"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPRIGHT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomLeft">
+							<Size>
+								<AbsDimension x="256" y="256"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+						<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomRight">
+							<Size>
+								<AbsDimension x="128" y="256"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+					</Layer>
+
+					<Layer level="ARTWORK">
+						<Texture name="EkWaitList_WaitFrame_HorizontalBarLeft" file="Interface\ClassTrainerFrame\UI-ClassTrainer-HorizontalBar">
+							<Size>
+								<AbsDimension x="256" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="15" y="-345"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="1.0" top="0" bottom="0.25"/>
+						</Texture>
+						<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-HorizontalBar">
+							<Size>
+								<AbsDimension x="75" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_HorizontalBarLeft" relativePoint="RIGHT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.29296875" top="0.25" bottom="0.5"/>
+						</Texture>
+						<FontString name="EkWaitList_WaitFrame_TitleText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_WaitFrame_SubTitle" inherits="GameFontNormalSmall">
+							<Size>
+								<AbsDimension x="250" y="32"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="52" y="-35"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_WaitFrame_Totals" inherits="GameFontNormalSmall">
+							<Size>
+								<AbsDimension x="298" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOM">
+									<Offset>
+										<AbsDimension x="-10" y="163"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_WaitFrame_Message" inherits="GameFontNormal" text="">
+							<Size>
+								<AbsDimension x="320" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="25" y="125"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="EkWaitList_WaitFrame_ViewButton" inherits="UIPanelButtonTemplate" text="EkWaitList_TEXT_Waitlist_View_Button">
+						<Size>
+							<AbsDimension x="50" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-48" y="-42"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_WaitFrame_ViewButton_OnClick();
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_WaitFrame_ViewButton_OnEnter(self);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ColumnHeader1" inherits="EkWaitList_WaitFrame_ColumnHeaderTemplate" text="EkWaitList_TEXT_Waitlist_Position_Column_Title">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="20" y="-70"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_WaitFrame_Column_SetWidth(self, 36);
+								self.sortType = "pos";
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Position_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Position_Column_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ColumnHeader2" inherits="EkWaitList_WaitFrame_ColumnHeaderTemplate" text="EkWaitList_TEXT_Waitlist_Name_Column_Title">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_ColumnHeader1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_WaitFrame_Column_SetWidth(self, 90);
+								self.sortType = "name";
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Name_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Name_Column_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ColumnHeader3" inherits="EkWaitList_WaitFrame_ColumnHeaderTemplate" text="EkWaitList_TEXT_Waitlist_Class_Column_Title">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_ColumnHeader2" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_WaitFrame_Column_SetWidth(self, 65);
+								self.sortType = "class";
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Class_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Class_Column_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ColumnHeader4" inherits="EkWaitList_WaitFrame_ColumnHeaderTemplate" text="EkWaitList_TEXT_Waitlist_Added_Column_Title">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_ColumnHeader3" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_WaitFrame_Column_SetWidth(self, 80);
+								self.sortType = "added";
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								if (EkWaitList_ShowWaitTime == 1) then
+									EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Waited_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Waited_Column_Tooltip2);
+								else
+									EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Added_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Added_Column_Tooltip2);
+								end
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ColumnHeader5" inherits="EkWaitList_WaitFrame_ColumnHeaderTemplate" text="EkWaitList_TEXT_Waitlist_Rank_Column_Title">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_ColumnHeader4" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="-2" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_WaitFrame_Column_SetWidth(self, 60);
+								self.sortType = "percent";
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								if (EkWaitList_ShowRank == 1) then
+									EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Rank_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Rank_Column_Tooltip2);
+								else
+									EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Percent_Column_Tooltip1, EkWaitList_TEXT_Waitlist_Percent_Column_Tooltip2);
+								end
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ToggleTimeButton" parent="EkWaitList_WaitFrame_ColumnHeader4">
+						<Size>
+							<AbsDimension x="32" y="32"/>
+						</Size>
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="RIGHT" relativeTo="EkWaitList_WaitFrame_ColumnHeader4">
+								<Offset>
+									<AbsDimension x="-2" y="-2"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_WaitFrame_ToggleTimeButton_OnClick();
+								PlaySound("igMainMenuOptionCheckBoxOn");
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Added_Column_Button_Tooltip1, EkWaitList_TEXT_Waitlist_Added_Column_Button_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+							<OnLoad>
+								-- OnLoad(self)
+								self:SetScale(.7);
+							</OnLoad>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+						<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+						<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+						<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+						<NormalFont style="GameFontNormalSmall"/>
+						<ButtonText>
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="-32" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</ButtonText>
+						<PushedTextOffset>
+							<AbsDimension x="0" y="0"/>
+						</PushedTextOffset>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_ToggleButton" parent="EkWaitList_WaitFrame_ColumnHeader5">
+						<Size>
+							<AbsDimension x="32" y="32"/>
+						</Size>
+						<Anchors>
+							<Anchor point="RIGHT" relativePoint="RIGHT" relativeTo="EkWaitList_WaitFrame_ColumnHeader5">
+								<Offset>
+									<AbsDimension x="-2" y="-2"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								-- OnClick(self, button, down)
+								EkWaitList_WaitFrame_ToggleButton_OnClick();
+								PlaySound("igMainMenuOptionCheckBoxOn");
+							</OnClick>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_Waitlist_Rank_Column_Button_Tooltip1, EkWaitList_TEXT_Waitlist_Rank_Column_Button_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+							<OnLoad>
+								-- OnLoad(self)
+								self:SetScale(.7);
+							</OnLoad>
+						</Scripts>
+						<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+						<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+						<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+						<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+						<NormalFont style="GameFontNormalSmall"/>
+						<ButtonText>
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="-32" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</ButtonText>
+						<PushedTextOffset>
+							<AbsDimension x="0" y="0"/>
+						</PushedTextOffset>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button1" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_">
+								<Offset>
+									<AbsDimension x="15" y="-95"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button2" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button3" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button4" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button5" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button6" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button7" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button8" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button9" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button10" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="10">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button9" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button11" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="11">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button10" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button12" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="12">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button11" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button13" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="13">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button12" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button14" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="14">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button13" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="EkWaitList_WaitFrame_Button15" inherits="EkWaitList_WaitFrame_ButtonTemplate" id="15">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="EkWaitList_WaitFrame_Button14" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<ScrollFrame name="EkWaitList_WaitFrame_ListScrollFrame" inherits="FauxScrollFrameTemplate">
+						<Size>
+							<AbsDimension x="296" y="248"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="EkWaitList_Frame_" relativePoint="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-67" y="-100"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnVerticalScroll>
+								-- OnVerticalScroll(self, offset)
+								FauxScrollFrame_OnVerticalScroll(self, offset, EkWaitList_WaitFrame_Height, EkWaitList_WaitFrame_ListUpdate);
+							</OnVerticalScroll>
+						</Scripts>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_WaitFrame_ListScrollBarTop" file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+									<Size>
+										<AbsDimension x="31" y="216"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="-2" y="5"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.484375" top="0" bottom="1.0"/>
+								</Texture>
+								<Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+									<Size>
+										<AbsDimension x="31" y="106"/>
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+											<Offset>
+												<AbsDimension x="-2" y="-2"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+					</ScrollFrame>
+
+					<EditBox name="EkWaitList_WaitFrame_EB" letters="12" historyLines="0" numeric="false" autoFocus="false">
+						<Size>
+							<AbsDimension x="156" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-60" y="123"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="EkWaitList_WaitFrame_EBStatus" inherits="GameFontNormalSmall" text="">
+									<Size>
+										<AbsDimension x="180" y="16"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP" relativeTo="EkWaitList_WaitFrame_EB" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="0" y="2"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_WaitFrame_EBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_WaitFrame_EBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_WaitFrame_EBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_WaitFrame_EBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_WaitFrame_EBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnChar>
+								-- OnChar(self, text)
+								EkWaitList_WaitFrame_EB_OnChar(self);
+							</OnChar>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								self.cancel = 1;
+								self:ClearFocus();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								EkWaitList_WaitFrame_EB_OnEnterPressed(self);
+							</OnEnterPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_WaitFrame_EB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_WaitFrame_EB_EditStart();
+							</OnEditFocusGained>
+							<OnTextChanged>
+								-- OnTextChanged(self)
+								EkWaitList_WaitFrame_EB_Changed(self);
+							</OnTextChanged>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_WaitFrame_EB_OnEnter(self);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						-- OnLoad(self)
+						EkWaitList_WaitFrame_OnLoad();
+					</OnLoad>
+					<OnShow>
+						-- OnShow(self)
+						EkWaitList_WaitFrame_OnShow();
+					</OnShow>
+				</Scripts>
+			</Frame>
+
+			<Frame name="EkWaitList_EditFrame_" hidden="true" setAllPoints="true">
+				<Layers>
+					<Layer level="ARTWORK">
+						<Texture name="EkWaitList_EditFrame_HorizontalBarLeft" file="Interface\ClassTrainerFrame\UI-ClassTrainer-HorizontalBar">
+							<Size>
+								<AbsDimension x="256" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset>
+										<AbsDimension x="15" y="-390"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="1.0" top="0" bottom="0.25"/>
+						</Texture>
+						<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-HorizontalBar">
+							<Size>
+								<AbsDimension x="75" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="EkWaitList_EditFrame_HorizontalBarLeft" relativePoint="RIGHT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<TexCoords left="0" right="0.29296875" top="0.25" bottom="0.5"/>
+						</Texture>
+						<FontString name="EkWaitList_EditFrame_TitleText" inherits="GameFontNormal">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-18"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+						<FontString name="EkWaitList_EditFrame_Message" inherits="GameFontNormal" text="">
+							<Size>
+								<AbsDimension x="320" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="BOTTOMLEFT">
+									<Offset>
+										<AbsDimension x="25" y="110"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<EditBox name="EkWaitList_EditFrame_NameEB" letters="12" historyLines="0" numeric="false" autoFocus="false">
+						<Size>
+							<AbsDimension x="180" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="120" y="-92"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="EkWaitList_EditFrame_NameText" inherits="GameFontNormal" text="EkWaitList_TEXT_EditWindow_Name">
+									<Anchors>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_NameEB" relativePoint="LEFT">
+											<Offset>
+												<AbsDimension x="-15" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								<FontString name="EkWaitList_EditFrame_NameEBStatus" inherits="GameFontNormalSmall" text="">
+									<Size>
+										<AbsDimension x="180" y="16"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP" relativeTo="EkWaitList_EditFrame_NameEB" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="0" y="2"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_EditFrame_NameEBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_NameEBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_NameEBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_EditFrame_NameEBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_NameEBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnChar>
+								-- OnChar(self, text)
+								EkWaitList_Name_AutoComplete(self);
+							</OnChar>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								EkWaitList_EditFrame_Cancel();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								if (EkWaitList_EditFrame_Accept()) then
+									self:ClearFocus();
+								end
+							</OnEnterPressed>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								EkWaitList_EditFrame_NameEB_OnTab(self);
+							</OnTabPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_EditFrame_NameEB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_EditFrame_NameEB_EditStart();
+							</OnEditFocusGained>
+							<OnTextChanged>
+								-- OnTextChanged(self)
+								EkWaitList_EditFrame_NameEB_Changed();
+							</OnTextChanged>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_EditWindow_Name_Tooltip1, EkWaitList_TEXT_EditWindow_Name_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+
+					<Frame name="EkWaitList_EditFrame_ClassDropDown" inherits="UIDropDownMenuTemplate" hidden="false">
+						<Size>
+							<AbsDimension x="30" y="16"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="EkWaitList_EditFrame_NameEB">
+								<Offset>
+									<AbsDimension x="-24" y="-23"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="EkWaitList_EditFrame_ClassText" inherits="GameFontNormal" text="EkWaitList_TEXT_EditWindow_Class">
+									<Anchors>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_ClassDropDown" relativePoint="LEFT">
+											<Offset>
+												<AbsDimension x="8" y="4"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnLoad>
+								-- OnLoad(self)
+								EkWaitList_EditFrame_ClassDropDown_OnLoad();
+							</OnLoad>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_EditWindow_Class_Tooltip1, EkWaitList_TEXT_EditWindow_Class_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+					</Frame>
+
+					<EditBox name="EkWaitList_EditFrame_AltNameEB" letters="12" historyLines="0" numeric="false" autoFocus="false">
+						<Size>
+							<AbsDimension x="180" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="EkWaitList_EditFrame_NameEB">
+								<Offset>
+									<AbsDimension x="0" y="-65"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="EkWaitList_EditFrame_AltNameText" inherits="GameFontNormal" text="EkWaitList_TEXT_EditWindow_Name2">
+									<Anchors>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_AltNameEB" relativePoint="LEFT">
+											<Offset>
+												<AbsDimension x="-15" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								<FontString name="EkWaitList_EditFrame_AltNameEBStatus" inherits="GameFontNormalSmall" text="">
+									<Size>
+										<AbsDimension x="180" y="16"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOP" relativeTo="EkWaitList_EditFrame_AltNameEB" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="0" y="2"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_EditFrame_AltNameEBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_AltNameEBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_AltNameEBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_EditFrame_AltNameEBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_AltNameEBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnChar>
+								-- OnChar(self, text)
+								EkWaitList_Name_AutoComplete(self);
+							</OnChar>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								EkWaitList_EditFrame_Cancel();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								if (EkWaitList_EditFrame_Accept()) then
+									self:ClearFocus();
+								end
+							</OnEnterPressed>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								EkWaitList_EditFrame_AltNameEB_OnTab(self);
+							</OnTabPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_EditFrame_AltNameEB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_EditFrame_AltNameEB_EditStart();
+							</OnEditFocusGained>
+							<OnTextChanged>
+								-- OnTextChanged(self)
+								EkWaitList_EditFrame_AltNameEB_Changed();
+							</OnTextChanged>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_EditWindow_Name2_Tooltip1, EkWaitList_TEXT_EditWindow_Name2_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+					<EditBox name="EkWaitList_EditFrame_CommentEB" letters="80" historyLines="0" numeric="false" autoFocus="false">
+						<Size>
+							<AbsDimension x="180" y="20"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="EkWaitList_EditFrame_AltNameEB">
+								<Offset>
+									<AbsDimension x="0" y="-22"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="ARTWORK">
+								<FontString name="EkWaitList_EditFrame_CommentText2" inherits="GameFontNormal" text="EkWaitList_TEXT_EditWindow_Comments">
+									<Anchors>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_CommentEB" relativePoint="LEFT">
+											<Offset>
+												<AbsDimension x="-15" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+							<Layer level="BACKGROUND">
+								<Texture name="EkWaitList_EditFrame_CommentEBLeft" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="-7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_CommentEBRight" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="8" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPRIGHT">
+											<Offset>
+												<AbsDimension x="7" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+									<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+								</Texture>
+								<Texture name="EkWaitList_EditFrame_CommentEBMiddle" file="Interface\Common\Common-Input-Border">
+									<Size>
+										<AbsDimension x="10" y="20"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="EkWaitList_EditFrame_CommentEBLeft" relativePoint="RIGHT"/>
+										<Anchor point="RIGHT" relativeTo="EkWaitList_EditFrame_CommentEBRight" relativePoint="LEFT"/>
+									</Anchors>
+									<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnEscapePressed>
+								-- OnEscapePressed(self)
+								EkWaitList_EditFrame_Cancel();
+							</OnEscapePressed>
+							<OnEnterPressed>
+								-- OnEnterPressed(self)
+								if (EkWaitList_EditFrame_Accept()) then
+									self:ClearFocus();
+								end
+							</OnEnterPressed>
+							<OnTabPressed>
+								-- OnTabPressed(self)
+								EkWaitList_EditFrame_CommentEB_OnTab(self);
+							</OnTabPressed>
+							<OnEditFocusLost>
+								-- OnEditFocusLost(self)
+								EkWaitList_EditFrame_CommentEB_EditStop(self.cancel);
+								self.cancel = nil;
+							</OnEditFocusLost>
+							<OnEditFocusGained>
+								-- OnEditFocusGained(self)
+								self.cancel = nil;
+								EkWaitList_EditFrame_CommentEB_EditStart();
+							</OnEditFocusGained>
+							<OnEnter>
+								-- OnEnter(self, motion)
+								EkWaitList_SetTooltip_Corner(self, EkWaitList_TEXT_EditWindow_Comments_Tooltip1, EkWaitList_TEXT_EditWindow_Comments_Tooltip2);
+							</OnEnter>
+							<OnLeave>
+								-- OnLeave(self, motion)
+								EkWaitList_HideTooltip();
+							</OnLeave>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						-- OnShow(self)
+						EkWaitList_EditFrame_OnShow();
+					</OnShow>
+				</Scripts>
+			</Frame>
+
+			<Button name="EkWaitList_Frame_Tab1" inherits="EkWaitList_Frame_TabTemplate" id="1" text="EkWaitList_TEXT_Window_Tab_Wait">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="11" y="45"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						-- OnEnter(self, motion)
+						EkWaitList_SetTooltip_Corner(self, nil, EkWaitList_TEXT_Window_Tab_Wait_Tooltip2);
+					</OnEnter>
+					<OnLeave>
+						-- OnLeave(self, motion)
+						EkWaitList_HideTooltip();
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button name="EkWaitList_Frame_Tab2" inherits="EkWaitList_Frame_TabTemplate" id="2" text="EkWaitList_TEXT_Window_Tab_Options">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="EkWaitList_Frame_Tab1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="-14" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						-- OnEnter(self, motion)
+						EkWaitList_SetTooltip_Corner(self, nil, EkWaitList_TEXT_Window_Tab_Options_Tooltip2);
+					</OnEnter>
+					<OnLeave>
+						-- OnLeave(self, motion)
+						EkWaitList_HideTooltip();
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				-- OnLoad(self)
+				EkWaitList_Frame_OnLoad(self);
+				self:SetClampedToScreen(true);
+				self:SetClampRectInsets(self:GetWidth()-105, -(self:GetWidth()-105), 0, self:GetHeight()-42);
+			</OnLoad>
+			<OnShow>
+				-- OnShow(self)
+				EkWaitList_Frame_OnShow();
+			</OnShow>
+			<OnHide>
+				-- OnHide(self)
+				EkWaitList_Frame_OnHide(self);
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<Frame name="EkWaitList_PromptFrame_" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="325" y="170"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="256" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentHeaderText" inherits="GameFontNormal" text="">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentHeaderTexture">
+							<Offset>
+								<AbsDimension x="0" y="-14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentInfo" justifyV="top" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension x="350" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-30"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentTimer" justifyV="top" inherits="GameFontNormal">
+					<Size>
+						<AbsDimension x="350" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-60"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDisableRaidText" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="45" y="42"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDisableText" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="45" y="17"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentButton1" hidden="false" inherits="GameMenuButtonTemplate" text="">
+				<Size>
+					<AbsDimension x="125" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="30" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						-- OnClick(self, button, down)
+						EkWaitList_PromptFrame_Button1_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentButton2" hidden="false" inherits="GameMenuButtonTemplate" text="">
+				<Size>
+					<AbsDimension x="125" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-30" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						-- OnClick(self, button, down)
+						EkWaitList_PromptFrame_Button2_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<CheckButton name="$parentDisableRaidCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_PromptFrame_DisableRaidText">
+						<Offset>
+							<AbsDimension x="-5" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<HitRectInsets>
+					<AbsInset left="0" right="0" top="0" bottom="0"/>
+				</HitRectInsets>
+				<Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+				<Scripts>
+					<OnClick>
+						-- OnClick(self, button, down)
+						EkWaitList_PromptFrame_DisableRaidCB_OnClick();
+					</OnClick>
+					<OnEnter>
+						-- OnEnter(self, motion)
+						EkWaitList_PromptFrame_DisableRaidCB_OnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						-- OnLeave(self, motion)
+						EkWaitList_HideTooltip();
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+			<CheckButton name="$parentDisableCB" hidden="false" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" relativeTo="EkWaitList_PromptFrame_DisableText">
+						<Offset>
+							<AbsDimension x="-5" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<HitRectInsets>
+					<AbsInset left="0" right="0" top="0" bottom="0"/>
+				</HitRectInsets>
+				<Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+				<Scripts>
+					<OnClick>
+						-- OnClick(self, button, down)
+						EkWaitList_PromptFrame_DisableCB_OnClick();
+					</OnClick>
+					<OnEnter>
+						-- OnEnter(self, motion)
+						EkWaitList_PromptFrame_DisableCB_OnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						-- OnLeave(self, motion)
+						EkWaitList_HideTooltip();
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				-- OnShow(self)
+				EkWaitList_PromptFrame_OnShow();
+			</OnShow>
+			<OnHide>
+				-- OnHide(self)
+				EkWaitList_PromptFrame_OnHide();
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<Frame name="EkWaitList_UpdateFrame" frameStrata="HIGH"  toplevel="true" enableMouse="false" parent="UIParent" hidden="false">
+		<Scripts>
+			<OnLoad>
+				-- OnLoad(self)
+				EkWaitList_OnLoad(self);
+			</OnLoad>
+			<OnUpdate>
+				-- OnUpdate(self, elapsed)
+				EkWaitList_OnUpdate(self, elapsed);
+			</OnUpdate>
+			<OnEvent>
+				-- OnEvent(self, event, ...)
+				EkWaitList_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,27 @@
+## Interface: 50001
+## Version: 5.01
+## Title: EkWaitList
+## Author: Dargen (Guild: Eternal Keggers, Server: Terenas)
+## Notes: A wait list addon. Handles main and alternate character names. People can add/remove themselves using whisper commands. Names on the wait list can be accessed by the EkRaidAttend addon when attendance is taken.
+## DefaultState: enabled
+## SavedVariables: EkWaitList_WaitList
+## SavedVariables: EkWaitList_InRaidFlag
+## SavedVariables: EkWaitList_MovableWindow
+## SavedVariables: EkWaitList_Whispers_wlCommands
+## SavedVariables: EkWaitList_Whispers_wlIncoming
+## SavedVariables: EkWaitList_Whispers_wlOutgoing
+## SavedVariables: EkWaitList_Whispers_wlConfig
+## SavedVariables: EkWaitList_Whispers_wlNonGuild
+## SavedVariables: EkWaitList_ShowRank
+## SavedVariables: EkWaitList_FirstRun
+## SavedVariables: EkWaitList_MainNameUse
+## SavedVariables: EkWaitList_MainNameNote
+## SavedVariables: EkWaitList_MainNameStart
+## SavedVariables: EkWaitList_MainNameEnd
+## SavedVariables: EkWaitList_SendWaitListTo
+## SavedVariables: EkWaitList_RemoveUponJoin
+## SavedVariables: EkWaitList_AnnounceChannel
+## SavedVariables: EkWaitList_ShowTooltips
+## SavedVariables: EkWaitList_ShowAtCursor
+## SavedVariables: EkWaitList_ShowWaitTime
+EkWaitList.xml
