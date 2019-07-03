@@ -1,5 +1,5 @@
-## Interface: 50001
-## Version: 5.01
+## Interface: 80200
+## Version: 8.2
 ## Title: EkWaitList
 ## Author: Dargen (Guild: Eternal Keggers, Server: Terenas)
 ## Notes: A wait list addon. Handles main and alternate character names. People can add/remove themselves using whisper commands. Names on the wait list can be accessed by the EkRaidAttend addon when attendance is taken.

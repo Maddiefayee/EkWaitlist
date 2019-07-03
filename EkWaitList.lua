@@ -1,6 +1,6 @@
 --[[
 --
---  EkWaitList 5.01
+--  EkWaitList 8.2
 --
 --  Refer to index.html for documentation and complete change history.
 --
@@ -48,7 +48,7 @@ EkWaitList_ShowWaitTime = 0;  -- 1==Show wait time, 0==Show added time.
 -- ------
 -- Variables not saved.
 -- ------
-EkWaitList_Version = "5.01";
+EkWaitList_Version = "8.2"; -- 7/3/2019
 
 EkWaitList_Slash1 = "/ekwl";
 EkWaitList_Slash2 = "/ekwaitlist";
