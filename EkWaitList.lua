@@ -130,6 +130,7 @@ EkWaitList_ClassList = {
 	{id=10, type="WARRIOR",      name=EkWaitList_TEXT_Class_Warrior},
 	{id=11, type="DEATHKNIGHT",  name=EkWaitList_TEXT_Class_DeathKnight},
 	{id=12, type="MONK",         name=EkWaitList_TEXT_Class_Monk},
+	{id=13, type="DEMONHUNTER",  name=EkWaitList_TEXT_Class_DemonHunter}, -- 7/3/2019
 };
 
 -- EkCheck configuration for this addon.
