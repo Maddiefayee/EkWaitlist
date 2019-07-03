@@ -7,7 +7,7 @@
 --v8.2
 -- Updated Interface and Version to current.
 -- Solved GitHub Issue #1
---
+-- Added Demon Hunter Class
 -- v5.01
 -- - Added  : EkWaitList_TEXT_Class_Monk
 --
@@ -106,6 +106,7 @@ EkWaitList_TEXT_Class_Rogue = "Rogue";
 EkWaitList_TEXT_Class_Shaman = "Shaman";
 EkWaitList_TEXT_Class_Warlock = "Warlock";
 EkWaitList_TEXT_Class_Warrior = "Warrior";
+EkWaitList_TEXT_Class_DemonHunter= "Demon Hunter"; -- 7/3/2019
 
 -- Miscellaneous messages
 EkWaitList_TEXT_Msg_Invalid_Command = "Invalid command. For help type: %s";
