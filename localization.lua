@@ -4,6 +4,9 @@
 
 
 -- Recent changes:
+--v8.2
+-- Updated Interface and Version to current.
+-- Solved GitHub Issue #1
 --
 -- v5.01
 -- - Added  : EkWaitList_TEXT_Class_Monk
